@@ -1,0 +1,19 @@
+{
+  "name": "fastype",
+  "version": "1.0.0",
+  "description": "Typing test clone with daily top-20 leaderboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check public/script.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1"
+  }
+}

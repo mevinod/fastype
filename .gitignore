@@ -1,0 +1,4 @@
+node_modules/
+fastype.db
+.env
+npm-debug.log*

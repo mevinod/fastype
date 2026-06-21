@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fastype - Typing Test</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="card test-card">
+        <header>
+          <h1>Fastype</h1>
+          <p>Type as many words as you can in 60 seconds. Press space to start.</p>
+          <p class="user-line">Player: <span id="playerName">Loading...</span></p>
+        </header>
+
+        <div id="wordBox" class="word-box"></div>
+
+        <input id="typingInput" class="typing-input" type="text" autocomplete="off" placeholder="Start typing here..." />
+
+        <div class="stats">
+          <div><strong>Time:</strong> <span id="time">60</span>s</div>
+          <div><strong>WPM:</strong> <span id="wpm">0</span></div>
+          <div><strong>Accuracy:</strong> <span id="accuracy">100</span>%</div>
+        </div>
+
+        <div class="actions">
+          <button id="startBtn">Start Test</button>
+          <button id="restartBtn">Restart</button>
+        </div>
+      </section>
+
+      <aside class="card board-card">
+        <h2>Top 20 (Last 24 Hours)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>WPM</th>
+              <th>Accuracy</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </aside>
+    </main>
+    <footer class="site-footer">
+      <nav class="legal-links" aria-label="Legal pages">
+        <a href="./about.html">About</a>
+        <a href="./privacy.html">Privacy Policy</a>
+      </nav>
+    </footer>
+
+    <div id="nameModal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Enter your name</h3>
+        <input id="nameInput" type="text" maxlength="24" placeholder="Your name" />
+        <button id="saveNameBtn">Continue</button>
+        <p id="nameError" class="error"></p>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
