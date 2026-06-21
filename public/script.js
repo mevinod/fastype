@@ -15,7 +15,6 @@ const typingInput = document.getElementById("typingInput");
 const timeEl = document.getElementById("time");
 const wpmEl = document.getElementById("wpm");
 const accuracyEl = document.getElementById("accuracy");
-const startBtn = document.getElementById("startBtn");
 const restartBtn = document.getElementById("restartBtn");
 const leaderboardBody = document.getElementById("leaderboardBody");
 const playerNameEl = document.getElementById("playerName");
@@ -51,7 +50,7 @@ function renderWords() {
 function updateStats() {
   const elapsed = 60 - timeLeft || 1;
   const wpm = Math.round((correctWords / elapsed) * 60);
-  const accuracy = totalTypedWords ? (correctWords / totalTypedWords) * 100 : 100;
+  const accuracy = totalTypedWords ? (correctWords / totalTypedWords) * 100 : 0;
   wpmEl.textContent = String(Number.isFinite(wpm) ? wpm : 0);
   accuracyEl.textContent = accuracy.toFixed(1);
 }
@@ -132,12 +131,9 @@ function stopTest() {
   submitResult().then(loadLeaderboard).catch(() => {});
 }
 
-function startTest() {
+function startTimer() {
   if (running) return;
   running = true;
-  typingInput.disabled = false;
-  typingInput.value = "";
-  typingInput.focus();
   timer = setInterval(() => {
     timeLeft -= 1;
     timeEl.textContent = String(timeLeft);
@@ -158,14 +154,20 @@ function resetTest() {
   running = false;
   timeEl.textContent = "60";
   wpmEl.textContent = "0";
-  accuracyEl.textContent = "100";
+  accuracyEl.textContent = "0.0";
   typingInput.value = "";
-  typingInput.disabled = true;
+  typingInput.disabled = false;
   renderWords();
   updateActiveWordPreview();
+  typingInput.focus();
 }
 
 typingInput.addEventListener("keydown", (event) => {
+  if (!running && event.key === " ") {
+    event.preventDefault();
+    return;
+  }
+
   if (!running) return;
   if (event.key !== " ") return;
   event.preventDefault();
@@ -185,22 +187,13 @@ typingInput.addEventListener("keydown", (event) => {
 });
 
 typingInput.addEventListener("input", () => {
-  if (!running) return;
+  if (!running && typingInput.value.trim().length > 0) {
+    startTimer();
+  }
   updateActiveWordPreview();
 });
 
-startBtn.addEventListener("click", startTest);
 restartBtn.addEventListener("click", resetTest);
-
-document.addEventListener("keydown", (event) => {
-  if (event.key !== " ") return;
-  if (running) return;
-  if (!typingInput.disabled) return;
-  if (!nameModal.classList.contains("hidden")) return;
-  if (document.activeElement === nameInput) return;
-  event.preventDefault();
-  startTest();
-});
 
 async function loadLeaderboard() {
   const response = await fetch("api/leaderboard");
