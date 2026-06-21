@@ -38,9 +38,10 @@ h3 {
 }
 
 .word-box {
-  min-height: 128px;
+  min-height: 96px;
+  max-height: 180px;
   line-height: 2;
-  font-size: 1.42rem;
+  font-size: 1.2rem;
   background: #0b1220;
   border: 1px solid #1f2937;
   border-radius: 10px;
@@ -50,7 +51,7 @@ h3 {
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 8px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .word {
@@ -98,8 +99,8 @@ h3 {
 .typing-input,
 #nameInput {
   width: 100%;
-  padding: 14px;
-  font-size: 1.2rem;
+  padding: 16px;
+  font-size: 1.35rem;
   border-radius: 8px;
   border: 1px solid #374151;
   background: #0b1220;

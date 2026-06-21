@@ -72,12 +72,16 @@ function moveToNextWord() {
   activeWord.classList.remove("active");
   currentWordIndex += 1;
   const nextWord = wordBox.querySelector(`[data-index="${currentWordIndex}"]`);
-  if (nextWord) nextWord.classList.add("active");
+  if (nextWord) {
+    nextWord.classList.add("active");
+    nextWord.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
 }
 
 function updateActiveWordPreview() {
   const activeWord = wordBox.querySelector(`[data-index="${currentWordIndex}"]`);
   if (!activeWord) return;
+  activeWord.scrollIntoView({ block: "nearest", inline: "nearest" });
 
   const typed = typingInput.value;
   const expected = words[currentWordIndex] || "";
